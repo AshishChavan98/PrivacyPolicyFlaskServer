@@ -30,11 +30,6 @@ def index():
     res=getData(feature_array,mongo)
     return jsonify(res)
 
-@app.route('/getdata',methods=['POST'])
-def getdata():
-    print("\nRequest\n",str(request.get_data()))
-
-
 @app.route('/getsites',methods=['GET','POST'])
 def getsites():
     res=mongo.db.privacypolicy.find({},{'name':1,'_id':False})
@@ -43,5 +38,10 @@ def getsites():
         site_list.append((x['name']))
     print(site_list[0:2])
     return jsonify(site_list)
+
+
+@app.errorhandler(404) 
+def not_found(e): 
+  return jsonify('404 not found') 
 
 
