@@ -45,6 +45,3 @@ def getsites():
     return jsonify(site_list)
 
 
-
-
-app.run()
