@@ -9,10 +9,10 @@ import pickle
 app=Flask(__name__)
 cors = CORS(app)
 app.config.from_pyfile('production.cfg')
-try:
-    app.config.from_pyfile('development.cfg')
-except FileNotFoundError:
-    pass
+# try:
+#     app.config.from_pyfile('development.cfg')
+# except FileNotFoundError:
+#     pass
 
 mongo=PyMongo(app)
 
@@ -47,4 +47,4 @@ def getsites():
 
 
 
-app.run(host='127.0.0.1',port=8000,debug=True)
+app.run()
