@@ -22,7 +22,7 @@ def getData(data, mongo):
     else:
         arr = runModel(res)
         print(arr,flush=True)
-        result={'name':res['name'],'date':res['date'],'output':arr}
+        result={'name':res['name'],'date':res['date'],'link':res['link'],'output':arr}
         return result
         
 
