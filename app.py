@@ -3,6 +3,7 @@ from nltk.tokenize import word_tokenize
 from flask_pymongo import PyMongo
 from flask_cors import CORS
 from privacy_policy.getPrivacyPolicy import getData
+from privacy_policy.getRedabilityScore import getScoreValues
 import pickle
 
 
@@ -28,6 +29,16 @@ def index():
     print("request headers",request.headers)
     feature_array=request.get_json()
     res=getData(feature_array,mongo)
+    return jsonify(res)
+
+@app.route('/getdata',methods=['POST'])
+def getdata():
+    print("\nRequest\n",str(request.get_data()))
+
+@app.route('/readability',methods=['POST'])
+def getScore():
+    req=request.get_json()
+    res=getScoreValues(req,mongo)
     return jsonify(res)
 
 @app.route('/getsites',methods=['GET','POST'])

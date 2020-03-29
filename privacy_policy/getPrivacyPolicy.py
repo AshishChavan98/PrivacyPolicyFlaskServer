@@ -14,14 +14,14 @@ def getData(data, mongo):
     print('datebase response',res)
     res = list(res)[0]
 
-    # print('value of return Hello'+returnHello())
+    #
     result={}
     arr=[]
     if(len(res) == 0):
         print('Not Found')
     else:
         arr = runModel(res)
-        print(arr,flush=True)
+        # print(arr,flush=True)
         result={'name':res['name'],'date':res['date'],'link':res['link'],'output':arr}
         return result
         
