@@ -26,13 +26,22 @@ def getData(data, mongo):
         return result
         
 
+def getDataFromUser(data):
+    res={'file':data['body']}
+    arr = runModel(res)
+    # print(arr,flush=True)
+    result={'output':arr,'orignal':data['body']}
+    return result
 
 def runModel(res):
     tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
     labels = ['children_sent', 'collectionway_sent', 'contact_sent', 'cookies_sent','infocollect_sent', 'others', 'purpose_sent', 'security_sent', 'thirdparty_infoshare_sent']
     UPLOADS_PATH = join(dirname(realpath(__file__)), 'static/model.pkl')
     model = pickle.load(open(UPLOADS_PATH, "rb"))
-    temp = str(res['file'], 'utf-8')
+    if(type(res['file'])==str):
+        temp=res['file']
+    else:
+        temp = str(res['file'], 'utf-8')
     initial_sentence_list = tokenizer.tokenize(temp)
     sentence_list = [clean_text(x) for x in initial_sentence_list]
     print('In run model')
