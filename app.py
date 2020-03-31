@@ -4,7 +4,7 @@ from flask_pymongo import PyMongo
 from flask_cors import CORS
 from privacy_policy.getPrivacyPolicy import getData
 from privacy_policy.getPrivacyPolicy import getDataFromUser
-from privacy_policy.getRedabilityScore import getScoreValues
+from privacy_policy.getRedabilityScore import getScoreValues,getScoreValuesFromUserData
 import pickle
 
 
@@ -48,7 +48,12 @@ def getdata():
 @app.route('/readability',methods=['POST'])
 def getScore():
     req=request.get_json()
-    res=getScoreValues(req)
+    print(req)
+    if req['type']=='database':
+        res=getScoreValues(req,mongo)
+    else:
+        res=getScoreValuesFromUserData(req)
+    
     return jsonify(res)
 
 @app.route('/getsites',methods=['GET','POST'])

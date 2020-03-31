@@ -17,7 +17,7 @@ def getScoreValues(data,mongo):
 
     return getValues(res)
 
-def getScoreValues(data):
+def getScoreValuesFromUserData(data):
     
 
     res = {'file':data['body']}
