@@ -10,12 +10,26 @@ import nltk.data
 from bson import decode_all
 
 def getScoreValues(data,mongo):
-    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    
 
     res = mongo.db.privacypolicy.find({'name': data['body']})
     res = list(res)[0]
 
-    temp = str(res['file'], 'utf-8')
+    return getValues(res)
+
+def getScoreValues(data):
+    
+
+    res = {'file':data['body']}
+
+    return getValues(res)
+  
+def getValues(res):
+    tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+    if(type(res['file'])==str):
+        temp = res['file']
+    else:
+        temp = str(res['file'], 'utf-8')
     text=clean_text_for_scoring(temp)
     wordcount=len(text.split(' '))
     wordinfo=[]
